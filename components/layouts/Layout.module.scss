@@ -1,0 +1,123 @@
+@import "../../styles/colors.scss";
+@import "../../styles/utils.scss";
+
+$navpadding: 20px;
+
+.main_page_content {
+  // top: 80px;
+  //position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.main_page_nav {
+  background-color: $mediumGreyBackground;
+  min-height: 100%;
+  z-index: 3;
+  box-shadow: rgb(0 0 0 / 30%) 4px 0px 40px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  li {
+    color: $grey1;
+    font-weight: 600;
+    //padding: 15px 50px 15px 50px;
+    transition: 00.5s;
+  }
+  li:hover {
+    background-color: $greyBackground;
+  }
+  .on_list {
+    background-color: $grey4;
+  }
+}
+
+.main_content {
+  position: static;
+  width: 100%;
+  background-color: $greyBackground;
+  // padding: 5vh;
+  height: 100vh;
+  overflow: auto;
+}
+
+.logo_container {
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  font-style: bold;
+  color: white;
+  padding: $navpadding;
+  b {
+    margin-left: 5px;
+  }
+}
+
+.nav_card_container {
+  font-size: 18px;
+  padding: 15px $navpadding;
+}
+
+.bottom_container {
+  display: flex;
+  flex-direction: column;
+  padding: $navpadding;
+  a {
+    width: 100%;
+  }
+  button {
+    font-size: 18px;
+    padding: 10px $navpadding;
+    border-radius: 10px;
+    font-weight: bold;
+    border: none;
+    width: 100%;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .signup_button {
+    margin-bottom: 20px;
+    color: $grey5;
+    background-color: $grey0;
+    &:hover {
+      background-color: $grey1;
+    }
+  }
+
+  .login_button {
+    color: $grey5;
+    background-color: $dark-main;
+    &:hover {
+      background-color: $main-color;
+    }
+  }
+}
+
+.bottom_end_container {
+  margin-top: auto;
+  padding-bottom: $navpadding;
+  color: $grey1;
+  button {
+    width: 100%;
+    border: none;
+    background-color: $mediumGreyBackground;
+    padding: calc($navpadding/2);
+    color: $grey1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    svg {
+      margin-right: 5px;
+      width: 15px;
+      height: 15px;
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: $greyBackground;
+    }
+  }
+}

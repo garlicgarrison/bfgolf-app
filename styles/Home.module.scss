@@ -1,0 +1,89 @@
+// .container {
+//   padding: 0 2rem;
+// }
+@import "./colors.scss";
+@import "./utils.scss";
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  width: 100%;
+  padding: 1rem;
+}
+
+.playground_container {
+  height: 100%;
+  padding: 0px;
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 30px 70% 20%;
+  gap: 10px 30px;
+  grid-template-areas:
+    "command command command"
+    "editor editor editor"
+    "output output output";
+}
+
+.text_editor_container {
+  position: relative;
+  grid-row-start: editor;
+  grid-column-start: editor;
+  grid-row-end: editor;
+  grid-column-end: editor;
+}
+
+.text_editor {
+  // min-height: 100%;
+  outline: none;
+  resize: none;
+  // padding: 10px;
+  color: white;
+}
+
+// .header_container {
+//   position: relative;
+//   grid-row-start: header;
+//   grid-column-start: header;
+//   grid-row-end: header;
+//   grid-column-end: header;
+//   h1 {
+//     margin: 0px;
+//     color: white;
+//   }
+// }
+
+.commands_container {
+  position: relative;
+  display: flex;
+  grid-row-start: command;
+  grid-column-start: command;
+  grid-row-end: command;
+  grid-column-end: command;
+  button {
+    width: 100px;
+    margin-right: 10px;
+    outline: none;
+    border: none;
+    color: white;
+    background-color: $green;
+    cursor: pointer;
+    &:hover {
+      background-color: $success;
+      transition: 1s ease;
+    }
+  }
+  input {
+    width: 100%;
+    padding: 5px;
+    outline: none;
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+  }
+}
