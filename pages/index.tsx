@@ -7,7 +7,8 @@ import CodeMirror from "@uiw/react-codemirror";
 import { StreamLanguage } from "@codemirror/language";
 import { brainfuck } from "@codemirror/legacy-modes/mode/brainfuck";
 import { okaidia } from "@uiw/codemirror-theme-okaidia";
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { Interpreter } from "../interpreter/interpreter";
 
 const CodeEditor = dynamic(
   () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
@@ -17,6 +18,13 @@ const CodeEditor = dynamic(
 export default function Home() {
   const editContainerRef = useRef<HTMLDivElement>(null);
   const [editorHeight, setEditorHeight] = useState<number>(0);
+
+  const codeRef = useRef<string>("");
+  const inputRef = useRef<string>("");
+  const interpreterRef = useRef<Interpreter>(new Interpreter());
+
+  const [outputs, setOutputs] = useState<number[][]>([]);
+  const [errors, setErrors] = useState<Error | null>(null);
 
   useEffect(() => {
     if (editContainerRef.current) {
@@ -34,6 +42,39 @@ export default function Home() {
     return () => window.removeEventListener("resize", () => {});
   }, []);
 
+  const onCodeChange = (val: string) => {
+    codeRef.current = val;
+  };
+
+  const onInputChange = (event: ChangeEvent) => {
+    // @ts-ignore
+    inputRef.current = event.target.value;
+  };
+
+  const onRun = () => {
+    interpreterRef.current.changeCode(codeRef.current);
+    interpreterRef.current.changeInput(inputRef.current);
+
+    interpreterRef.current
+      .run()
+      .then((output) => {
+        const out = charArraytoString(output);
+        console.log(output);
+        console.log(out);
+        setOutputs([...outputs, output]);
+        console.log(interpreterRef.current.memory);
+
+        interpreterRef.current.reset();
+      })
+      .catch((error: Error) => {
+        console.log(error);
+      });
+  };
+
+  const charArraytoString = (charArr: number[]) => {
+    return String.fromCharCode(...charArr);
+  };
+
   return (
     <Layout>
       <div className={styles.container}>
@@ -47,8 +88,8 @@ export default function Home() {
           <div className={styles.playground_container}>
             {/* commands */}
             <div className={styles.commands_container}>
-              <button>Run</button>
-              <input />
+              <button onClick={onRun}>Run</button>
+              <input onChange={onInputChange} />
             </div>
 
             {/* editor */}
@@ -63,6 +104,7 @@ export default function Home() {
                 theme={okaidia}
                 minHeight={`${editorHeight}px`}
                 maxHeight={`${editorHeight}px`}
+                onChange={onCodeChange}
               />
             </div>
           </div>
