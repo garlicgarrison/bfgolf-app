@@ -24,11 +24,13 @@ export class Interpreter {
 
   run(): Promise<number[]> {
     return new Promise((resolve, reject) => {
+      let timedOut = false;
       setTimeout(() => {
+        timedOut = true;
         reject(new Error(TIMEOUT_ERROR));
       }, TIMEOUT);
 
-      for (let i = 0; i < this.code.length; i++) {
+      for (let i = 0; i < this.code.length && !timedOut; i++) {
         const c = this.code.charAt(i);
         switch (c) {
           case ">":
@@ -79,7 +81,7 @@ export class Interpreter {
               this.stack.push(i);
             } else {
               let count = 0;
-              while (true) {
+              while (!timedOut) {
                 i++;
                 const currentChar = this.code.charAt(i);
                 if (!currentChar) break;

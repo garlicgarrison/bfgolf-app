@@ -38,24 +38,10 @@
 }
 
 .text_editor {
-  // min-height: 100%;
   outline: none;
   resize: none;
-  // padding: 10px;
   color: white;
 }
-
-// .header_container {
-//   position: relative;
-//   grid-row-start: header;
-//   grid-column-start: header;
-//   grid-row-end: header;
-//   grid-column-end: header;
-//   h1 {
-//     margin: 0px;
-//     color: white;
-//   }
-// }
 
 .commands_container {
   position: relative;
@@ -79,11 +65,44 @@
   }
   input {
     width: 100%;
-    padding: 5px;
+    padding: 10px;
     outline: none;
     border: none;
     background-color: black;
     color: white;
-    font-size: 16px;
+    font-size: 12px;
+    font-family: "Monaco";
+  }
+}
+
+.terminal_container {
+  position: relative;
+  grid-row-start: output;
+  grid-column-start: output;
+  grid-row-end: output;
+  grid-column-end: output;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  font-family: "Monaco";
+}
+
+.outputs_container {
+  height: 100%;
+  padding: 10px;
+  overflow-wrap: break-word;
+  overflow-y: auto;
+  span {
+    color: white;
+  }
+}
+
+.terminal_header {
+  font-size: 12px;
+  background-color: $grey4;
+  padding: 5px;
+  display: flex;
+  img {
+    margin-right: 5px;
   }
 }

@@ -9,6 +9,7 @@ import { brainfuck } from "@codemirror/legacy-modes/mode/brainfuck";
 import { okaidia } from "@uiw/codemirror-theme-okaidia";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Interpreter } from "../interpreter/interpreter";
+import Image from "next/image";
 
 const CodeEditor = dynamic(
   () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
@@ -62,7 +63,6 @@ export default function Home() {
         console.log(output);
         console.log(out);
         setOutputs([...outputs, output]);
-        console.log(interpreterRef.current.memory);
 
         interpreterRef.current.reset();
       })
@@ -89,7 +89,7 @@ export default function Home() {
             {/* commands */}
             <div className={styles.commands_container}>
               <button onClick={onRun}>Run</button>
-              <input onChange={onInputChange} />
+              <input onChange={onInputChange} placeholder="Input" />
             </div>
 
             {/* editor */}
@@ -106,6 +106,29 @@ export default function Home() {
                 maxHeight={`${editorHeight}px`}
                 onChange={onCodeChange}
               />
+            </div>
+
+            {/* terminal */}
+            <div className={styles.terminal_container}>
+              <div className={styles.terminal_header}>
+                <Image
+                  src="/terminal.svg"
+                  alt="terminal icon"
+                  width={15}
+                  height={15}
+                />
+                Terminal
+              </div>
+              <div className={styles.outputs_container}>
+                {outputs.map((val) => {
+                  return (
+                    <div>
+                      <span>{`bf@bf:~$ ${val.toString()} \n`}</span>
+                      <br></br>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </main>
