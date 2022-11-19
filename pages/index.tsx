@@ -11,11 +11,6 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Interpreter } from "../interpreter/interpreter";
 import Image from "next/image";
 
-const CodeEditor = dynamic(
-  () => import("@uiw/react-textarea-code-editor").then((mod) => mod.default),
-  { ssr: false }
-);
-
 export default function Home() {
   const editContainerRef = useRef<HTMLDivElement>(null);
   const [editorHeight, setEditorHeight] = useState<number>(0);
