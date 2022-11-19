@@ -30,14 +30,12 @@ if (!getApps().length) {
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-auth.currentUser;
 
 const AuthContext = createContext<User | null>(null);
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  console.log(user);
 
   auth.onIdTokenChanged((user) => {
     setUser(user);
@@ -45,9 +43,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     authGuard();
-  }, [user]);
+  }, [router.route, user]);
 
   const authGuard = () => {
+    console.log(router);
     if (!user) {
       router.push("/login");
       return;
